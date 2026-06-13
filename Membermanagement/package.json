@@ -1,0 +1,13 @@
+{
+  "name": "Membermanagement",
+  "packageManager": "yarn@4.12.0",
+  "type": "module",
+  "dependencies": {
+    "DBconnect": "workspace:*",
+    "bcrypt": "^6.0.0",
+    "jwtauth": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^6"
+  }
+}
