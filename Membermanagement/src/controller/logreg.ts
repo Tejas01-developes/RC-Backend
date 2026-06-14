@@ -14,7 +14,7 @@ export const registermember=async(req:Request,resp:Response):Promise<void>=>{
         auth:string
     }
     if(!name || !email || !password){
-        resp.status(400).json({succes:false,message:"Fields are missing"})
+        resp.status(400).json({success:false,message:"Fields are missing"})
           return
    }
    const hash:string=await bcrypt.hash(password,10)
@@ -26,7 +26,7 @@ export const registermember=async(req:Request,resp:Response):Promise<void>=>{
 (err)=>{
     if(err){
         console.log(err)
-        resp.status(400).json({succes:false,message:"Registration failed"})
+        resp.status(400).json({success:false,message:"Registration failed"})
         return
     }
     resp.status(200).json({success:true,message:"registration success"})
@@ -41,18 +41,18 @@ export const loginmember=async(req:Request,resp:Response)=>{
         password:string
     }
     if(!email || !password){
-        resp.status(400).json({succes:false,message:"Fields are missing"})
+        resp.status(400).json({success:false,message:"Fields are missing"})
           return
    }
    try{
    const user=await loginservice(email);
    if(!user){
-    resp.status(400).json({succes:false,message:"user is missing"})
+    resp.status(400).json({success:false,message:"user is missing"})
           return 
    }
 const compare=await bcrypt.compare(password,user.password)
 if(!compare){
-    resp.status(400).json({succes:false,message:"password is incorrect"})
+    resp.status(400).json({success:false,message:"password is incorrect"})
     return 
 }
 const access:string=tokengenerate.access(user.member_id,user.auth)
@@ -80,11 +80,11 @@ resp.cookie("refresh",refresh,{
     path:"/"
 })
 
-resp.status(200).json({succes:true,message:"Login succesfull",access})
+resp.status(200).json({success:true,message:"Login succesfull",access})
 return 
    }catch(err){
     console.log(err)
-    resp.status(400).json({succes:false,message:"login failed"})
+    resp.status(400).json({success:false,message:"login failed"})
     return 
    }
 }

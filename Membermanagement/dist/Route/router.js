@@ -1,13 +1,14 @@
 import express from "express";
 import { loginmember, registermember } from "../controller/logreg.js";
-import { addevent, formfilling, getevent } from "../controller/formfilling.js";
-import { refreshfilter } from "jwtauth";
+import { addevent, formfilling, getevent, setauth } from "../controller/formfilling.js";
+import { accessfilter, refreshfilter } from "jwtauth";
 const router = express.Router();
 router.post("/register", registermember);
 router.post("/login", loginmember);
-router.post("/form", formfilling);
-router.post("/task", addevent);
+router.post("/form", accessfilter, formfilling);
+router.post("/task", accessfilter, addevent);
 router.post("/refresh", refreshfilter);
-router.get("/gettask", getevent);
+router.post("/auth", accessfilter, setauth);
+router.get("/getevents", accessfilter, getevent);
 export default router;
 //# sourceMappingURL=router.js.map

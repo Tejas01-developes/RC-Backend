@@ -5,9 +5,14 @@
   "dependencies": {
     "DBconnect": "workspace:*",
     "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "helmet": "^8.2.0",
     "jwtauth": "workspace:*"
   },
   "devDependencies": {
-    "@types/bcrypt": "^6"
+    "@types/bcrypt": "^6",
+    "@types/cookie-parser": "^1",
+    "@types/cors": "^2"
   }
 }
