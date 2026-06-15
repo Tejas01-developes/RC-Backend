@@ -21,7 +21,7 @@ mysqlconnect.query(
              resp.status(400).json({success:false,message:"form filling failed"})
              return
         }
-        resp.status(200).json({succes:true,message:"Form filled"})
+        resp.status(200).json({success:true,message:"Form filled"})
 return
     }
 )
