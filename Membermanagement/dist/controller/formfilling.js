@@ -1,17 +1,23 @@
 import { mysqlconnect } from "DBconnect";
-export const formfilling = (req, resp) => {
+import { container } from "../bgw/bgcontainer.js";
+export const formfilling = async (req, resp) => {
     const { name, email, phone } = req.body;
     if (!name || !email || !phone) {
         resp.status(400).json({ succes: false, message: "Fields are missing" });
         return;
     }
     const registerid = crypto.randomUUID();
-    mysqlconnect.query('insert into formdata (register_id,name,email,phoneno) values (?,?,?,?)', [registerid, name, email, phone], (err) => {
+    mysqlconnect.query('insert into formdata (register_id,name,email,phoneno) values (?,?,?,?)', [registerid, name, email, phone], async (err) => {
         if (err) {
             resp.status(400).json({ success: false, message: "form filling failed" });
             return;
         }
         resp.status(200).json({ success: true, message: "Form filled" });
+        await container.add({
+            to: email,
+            subject: "Slot Allocated",
+            text: `Here is your slot id ${registerid}`
+        });
         return;
     });
 };
@@ -55,7 +61,7 @@ export const addevent = (req, resp) => {
         return;
     }
 };
-export const getevent = (req, resp) => {
+export const getevent = (_req, resp) => {
     mysqlconnect.query('select * from ourevents', (err, res) => {
         if (err) {
             resp.status(400).json({ success: false, message: "get task from the database failed" });

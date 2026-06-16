@@ -4,7 +4,6 @@ dotenv.config();
 export const accessfilter = (req, resp, next) => {
     const token = req.headers.authorization;
     const access = token?.split(" ")[1];
-    console.log(access);
     if (!access) {
         resp.status(400).json({ success: false, message: "access token is not there" });
         return;
@@ -13,7 +12,6 @@ export const accessfilter = (req, resp, next) => {
         const decode = jwt.verify(access, process.env.ACCESS_KEY);
         req.id = decode.id;
         req.auth = decode.auth;
-        console.log(req.id, req.auth);
         next();
     }
     catch (err) {

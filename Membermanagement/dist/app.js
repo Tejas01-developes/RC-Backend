@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import 'DBconnect';
+import './bgw/bgsetup.js';
 import router from './Route/router.js';
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet';

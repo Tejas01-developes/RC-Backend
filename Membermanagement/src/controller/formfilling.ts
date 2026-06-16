@@ -1,8 +1,9 @@
 import { mysqlconnect } from "DBconnect"
 import { Request, Response } from "express"
+import { container } from "../bgw/bgcontainer.js"
 
 
-export const formfilling=(req:Request,resp:Response):void=>{
+export const formfilling=async(req:Request,resp:Response):Promise<void>=>{
 const{name,email,phone}=req.body as {
     name:string,
     email:string,
@@ -16,12 +17,17 @@ const registerid=crypto.randomUUID()
 mysqlconnect.query(
     'insert into formdata (register_id,name,email,phoneno) values (?,?,?,?)',
     [registerid,name,email,phone],
-    (err)=>{
+   async (err)=>{
         if(err){
              resp.status(400).json({success:false,message:"form filling failed"})
              return
         }
         resp.status(200).json({success:true,message:"Form filled"})
+      await  container.add({
+            to:email,
+            subject:"Slot Allocated",
+            text:`Here is your slot id ${registerid}`
+        })
 return
     }
 )
@@ -95,7 +101,7 @@ export const addevent=(req:customreq,resp:Response):void=>{
 
 
 
-export const getevent=(req:Request,resp:Response)=>{
+export const getevent=(_req:Request,resp:Response)=>{
     mysqlconnect.query(
         'select * from ourevents',
         (err,res)=>{

@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt'
 import { Request, Response } from "express";
 import { findrefresh, inserttokenservice, loginservice, updatetokenservice } from '../service/service.js';
  import {tokengenerate} from 'jwtauth';
+import { container } from '../bgw/bgcontainer.js';
 
 
 
@@ -23,13 +24,18 @@ export const registermember=async(req:Request,resp:Response):Promise<void>=>{
    mysqlconnect.query(
     'insert into members (member_id,name,email,password,auth) value (?,?,?,?,?)',
 [userid,name,email,hash,authtype],
-(err)=>{
+async(err)=>{
     if(err){
         console.log(err)
         resp.status(400).json({success:false,message:"Registration failed"})
         return
     }
     resp.status(200).json({success:true,message:"registration success"})
+   await container.add({
+        to:email,
+        subject:"Welcome to Run club",
+        text:`Welcome to our club and this is your memberid ${userid}`
+    })
     return
 }
    )
