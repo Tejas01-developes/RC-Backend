@@ -79,18 +79,3 @@ mysqlconnect.query(
     })
 }
 
-// export const getlasteventno=()=>{
-//     return new Promise((resolve,reject)=>{
-//         mysqlconnect.query(
-//             'select MAX(eventno) from ourevents',
-//             (err,res)=>{
-//                 if(err){
-//                     return reject(err)
-//                 }
-//                 return resolve(res)
-
-//             }
-//         )
-//     })
-    
-// }
