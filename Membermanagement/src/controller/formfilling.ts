@@ -115,6 +115,27 @@ export const getevent=(_req:Request,resp:Response)=>{
     )
 }
 
+export const getcount=(_req:Request,resp:Response):void=>{
+try{
+    mysqlconnect.query(
+        'select max(count) as maxcount from formdata',
+        (err,res:any[])=>{
+            if(err){
+                resp.status(400).json({success:false,message:"count of the user failed"})
+                return
+            }
+            
+           const finalcount=res[0]
+            resp.status(200).json({success:true,finalcount})
+            return
+        }
+    )
+}catch(err){
+    resp.status(400).json({success:false,message:"count failed"})
+    return
+}
+}
+
 
 
 

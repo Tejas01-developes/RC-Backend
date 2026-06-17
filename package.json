@@ -16,6 +16,10 @@
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^9",
-    "@types/nodemailer": "^8.0.1"
+    "@types/nodemailer": "^8.0.1",
+    "@types/typescript": "^2.0.0"
+  },
+  "scripts": {
+    "build": "yarn workspaces foreach -A -p -t run build"
   }
 }

@@ -4,11 +4,11 @@
   "type": "module",
   "dependencies": {
     "DBconnect": "workspace:*",
-    "emailsending":"workspace:*",
     "bcrypt": "^6.0.0",
     "bull": "^4.16.5",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
+    "emailsending": "workspace:*",
     "helmet": "^8.2.0",
     "jwtauth": "workspace:*"
   },
@@ -16,5 +16,8 @@
     "@types/bcrypt": "^6",
     "@types/cookie-parser": "^1",
     "@types/cors": "^2"
+  },
+  "scripts": {
+    "build": "npx tsc"
   }
 }

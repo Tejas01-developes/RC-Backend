@@ -7,5 +7,6 @@ interface customreq extends Request {
 export declare const setauth: (req: customreq, resp: Response) => void;
 export declare const addevent: (req: customreq, resp: Response) => void;
 export declare const getevent: (_req: Request, resp: Response) => void;
+export declare const getcount: (_req: Request, resp: Response) => void;
 export {};
 //# sourceMappingURL=formfilling.d.ts.map

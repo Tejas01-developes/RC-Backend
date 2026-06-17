@@ -1,6 +1,6 @@
 import express from "express";
 import { loginmember, registermember } from "../controller/logreg.js";
-import { addevent, formfilling, getevent, setauth } from "../controller/formfilling.js";
+import { addevent, formfilling, getcount, getevent, setauth } from "../controller/formfilling.js";
 import { accessfilter, refreshfilter } from "jwtauth";
 
 
@@ -15,6 +15,7 @@ router.post("/task",accessfilter,addevent)
 router.post("/refresh",refreshfilter)
 router.post("/auth",accessfilter,setauth)
 router.get("/getevents",accessfilter,getevent)
+router.get("/count",accessfilter,getcount)
 
 
 
