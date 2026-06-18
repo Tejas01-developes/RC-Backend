@@ -61,12 +61,6 @@ export const setauth=(req:customreq,resp:Response)=>{
 
 
 
-
-
-
-
-
-
 export const addevent=(req:customreq,resp:Response):void=>{
    
     const{title,description,eventdate}=req.body as {
