@@ -1,6 +1,8 @@
 import { mysqlconnect } from "DBconnect"
 import { Request, Response } from "express"
 import { container } from "../bgw/bgcontainer.js"
+import { payment } from "../razorpay/payment.js"
+import crypto from 'crypto'
 
 
 export const formfilling=async(req:Request,resp:Response):Promise<void>=>{
@@ -128,6 +130,53 @@ try{
     resp.status(400).json({success:false,message:"count failed"})
     return
 }
+}
+
+
+export const dopayment=async(_req:Request,resp:Response)=>{
+const amount:number=1
+
+const details={
+    amount:amount * 100,
+    currency:"INR",
+    receipt:`receipt_${Date.now()}`
+}
+try{
+const order=await payment.orders.create(details);
+
+return resp.status(200).json({success:true,order})
+
+}catch(err){
+    console.log(err)
+    return resp.status(400).json({success:false,message:"payment failed"})
+}
+}
+
+
+export const verifypayment=(req:Request,resp:Response)=>{
+const{razorpay_order_id, razorpay_payment_id, razorpay_signature}=req.body as {
+     razorpay_order_id:string,
+     razorpay_payment_id:string,
+     razorpay_signature:string
+}
+if(!razorpay_order_id ||  !razorpay_payment_id || !razorpay_signature){
+    return resp.status(400).json({success:false,message:"payment stop"})
+}
+
+const text=razorpay_order_id + "|" + razorpay_payment_id
+
+const signature=crypto
+.createHmac("sha256",process.env.RAZOR_SECRET as string)
+.update(text)
+.digest("hex")
+
+if(signature === razorpay_signature){
+    return resp.status(200).json({success:true,message:"payment success"})
+}else{
+    return resp.status(400).json({success:false,message:"payment verification failed"})
+}
+
+
 }
 
 

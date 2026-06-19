@@ -1,5 +1,7 @@
 import { mysqlconnect } from "DBconnect";
 import { container } from "../bgw/bgcontainer.js";
+import { payment } from "../razorpay/payment.js";
+import crypto from 'crypto';
 export const formfilling = async (req, resp) => {
     const { name, email, phone } = req.body;
     if (!name || !email || !phone) {
@@ -86,6 +88,39 @@ export const getcount = (_req, resp) => {
     catch (err) {
         resp.status(400).json({ success: false, message: "count failed" });
         return;
+    }
+};
+export const dopayment = async (_req, resp) => {
+    const amount = 1;
+    const details = {
+        amount: amount * 100,
+        currency: "INR",
+        receipt: `receipt_${Date.now()}`
+    };
+    try {
+        const order = await payment.orders.create(details);
+        return resp.status(200).json({ success: true, order });
+    }
+    catch (err) {
+        console.log(err);
+        return resp.status(400).json({ success: false, message: "payment failed" });
+    }
+};
+export const verifypayment = (req, resp) => {
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
+    if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
+        return resp.status(400).json({ success: false, message: "payment stop" });
+    }
+    const text = razorpay_order_id + "|" + razorpay_payment_id;
+    const signature = crypto
+        .createHmac("sha256", process.env.RAZOR_SECRET)
+        .update(text)
+        .digest("hex");
+    if (signature === razorpay_signature) {
+        return resp.status(200).json({ success: true, message: "payment success" });
+    }
+    else {
+        return resp.status(400).json({ success: false, message: "payment verification failed" });
     }
 };
 //# sourceMappingURL=formfilling.js.map
