@@ -9,8 +9,9 @@ export const formfilling = async (req, resp) => {
         return;
     }
     const registerid = crypto.randomUUID();
-    mysqlconnect.query('insert into formdata (register_id,name,email,phoneno) values (?,?,?,?)', [registerid, name, email, phone], async (err) => {
+    mysqlconnect.query('insert into formdata (registered_id,name,email,phoneno) values (?,?,?,?)', [registerid, name, email, phone], async (err) => {
         if (err) {
+            console.log(err);
             resp.status(400).json({ success: false, message: "form filling failed" });
             return;
         }
@@ -87,6 +88,28 @@ export const getcount = (_req, resp) => {
     }
     catch (err) {
         resp.status(400).json({ success: false, message: "count failed" });
+        return;
+    }
+};
+export const attaindence = (req, resp) => {
+    console.log("attaindence api");
+    const { email } = req.body;
+    if (!email) {
+        resp.status(400).json({ success: false, message: "email not recived" });
+        return;
+    }
+    try {
+        mysqlconnect.query('update formdata set status = "Present" where email= ?', [email], (err) => {
+            if (err) {
+                resp.status(400).json({ success: false, message: "update failed from the database side" });
+                return;
+            }
+            resp.status(200).json({ success: true, message: "Marked present" });
+            return;
+        });
+    }
+    catch (err) {
+        resp.status(400).json({ success: false, message: "update failed from the server side" });
         return;
     }
 };

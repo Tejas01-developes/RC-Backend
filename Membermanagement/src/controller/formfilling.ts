@@ -17,10 +17,11 @@ if(!name || !email || !phone){
 }
 const registerid=crypto.randomUUID()
 mysqlconnect.query(
-    'insert into formdata (register_id,name,email,phoneno) values (?,?,?,?)',
+    'insert into formdata (registered_id,name,email,phoneno) values (?,?,?,?)',
     [registerid,name,email,phone],
    async (err)=>{
         if(err){
+            console.log(err)
              resp.status(400).json({success:false,message:"form filling failed"})
              return
         }
@@ -131,6 +132,40 @@ try{
     return
 }
 }
+
+
+
+export const attaindence=(req:Request,resp:Response)=>{
+    console.log("attaindence api")
+const{email}=req.body as{
+    email:string
+}
+if(!email){
+    resp.status(400).json({success:false,message:"email not recived"})
+    return
+}
+try{
+    mysqlconnect.query(
+        'update formdata set status = "Present" where email= ?',
+        [email],
+        (err)=>{
+            if(err){
+                resp.status(400).json({success:false,message:"update failed from the database side"})
+                return
+            }
+            resp.status(200).json({success:true,message:"Marked present"})
+            return
+        }
+    )
+}catch(err){
+    resp.status(400).json({success:false,message:"update failed from the server side"})
+    return
+}
+}
+
+
+
+
 
 
 export const dopayment=async(_req:Request,resp:Response)=>{

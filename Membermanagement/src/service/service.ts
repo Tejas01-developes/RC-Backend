@@ -65,7 +65,7 @@ mysqlconnect.query(
 export const updatetokenservice=(token:string,memberid:string)=>{
     return new Promise((resolve,reject)=>{
 mysqlconnect.query(
-    'update refresh set token=?,added_at=now(),expired_at=date_add(now(),interval 7 day) where member_id = ? ',
+    'update refresh set token=?,added_at=now(),expired=date_add(now(),interval 7 day) where member_id = ? ',
     [token,memberid],
     (err)=>{
         if(err){
