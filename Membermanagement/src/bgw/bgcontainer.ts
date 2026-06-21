@@ -1,6 +1,8 @@
 import bull from "bull";
+import dotenv from 'dotenv'
+dotenv.config();
 
 export const container=new bull(
     "rc-bgw",
-    "redis://127.0.0.1:6379"
+    `redis://${process.env.REDIS_HOST}:6379`
 )

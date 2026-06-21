@@ -1,1 +1,1 @@
-{"version":3,"file":"bgcontainer.d.ts","sourceRoot":"","sources":["../../src/bgw/bgcontainer.ts"],"names":[],"mappings":"AAAA,OAAO,IAAI,MAAM,MAAM,CAAC;AAExB,eAAO,MAAM,SAAS,iBAGrB,CAAA"}
+{"version":3,"file":"bgcontainer.d.ts","sourceRoot":"","sources":["../../src/bgw/bgcontainer.ts"],"names":[],"mappings":"AAAA,OAAO,IAAI,MAAM,MAAM,CAAC;AAIxB,eAAO,MAAM,SAAS,iBAGrB,CAAA"}
