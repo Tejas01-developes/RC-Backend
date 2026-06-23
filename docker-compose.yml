@@ -11,12 +11,12 @@ services:
    - DB_PORT=3306
    - ACCESS_KEY=hbrtngurhshdid
    - REFRESH_KEY=oitujnbrtvrtvhbyh
-   - EMAIL=limbadtejas99@gmail.com
-   - EMAIL_PASS=dmbsziwzwusgasen
+   - EMAIL=xyz@gmail.com
+   - EMAIL_PASS=edrsersertfsrfsertb
    - REDIS_HOST=redis
    - REDIS_PORT=6379
-   - RAZOR_API=rzp_test_T3ScY5ACZiRU07
-   - RAZOR_SECRET=f5Y8Lpt53r1miezRnsmVzY1Y
+   - RAZOR_API=erfgserfsefrbserer
+   - RAZOR_SECRET=sergsegsertgaserg
 
    depends_on: 
     - db
