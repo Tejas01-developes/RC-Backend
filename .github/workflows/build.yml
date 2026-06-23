@@ -1,0 +1,26 @@
+name: runclub ci
+
+on:
+ push:
+  branches: [main]
+ pull_request:
+  branches: [main]
+
+jobs:
+ build-and-test:
+  runs-on: ubuntu-latest 
+
+  steps:
+
+   - name: Checkout Code
+    uses: actions/setup-node@v4
+    with:
+       node-version: '24'
+       cache: 'yarn'
+
+   - name: Install Dependency
+     run: yarn install
+
+   - name: Build Typescript Application
+     run: yarn build
+
