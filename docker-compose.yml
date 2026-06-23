@@ -1,33 +1,47 @@
-version: '3.8'
-
 services:
-app:
-build: .
-ports: 
-- "3000:3000"
-environment:
-- DB_USER=Run-club
-- DB_NAME=Runclub
-- DB_PASS=runfor
-- DB_HOST=mysql
-- DB_PORT=3306
+  backend:
+   build: .
+   ports: 
+    - "3000:3000"
+   environment:
+   - DB_USER=Run-club
+   - DB_NAME=Runclub
+   - DB_PASS=runfor
+   - DB_HOST=db
+   - DB_PORT=3306
+   - ACCESS_KEY=hbrtngurhshdid
+   - REFRESH_KEY=oitujnbrtvrtvhbyh
+   - EMAIL=limbadtejas99@gmail.com
+   - EMAIL_PASS=dmbsziwzwusgasen
+   - REDIS_HOST=redis
+   - REDIS_PORT=6379
+   - RAZOR_API=rzp_test_T3ScY5ACZiRU07
+   - RAZOR_SECRET=f5Y8Lpt53r1miezRnsmVzY1Y
 
-depends_on:
-- mysql
+   depends_on: 
+    - db
+    - redis
 
-mysql:
 
-image: mysql:8.0
-ports: - "3306:3306"
-environment: 
-- DB_USER=Run-club
-- DB_NAME=Runclub
-- DB_PASS=runfor
-- DB_HOST=mysql
-- DB_PORT=3306
+  db:
+
+    image: mysql:8.0
+    ports: 
+    - "3306:3306"
+    environments:
+     - DB_USER=Run-club
+     - DB_NAME=Runclub
+     - DB_PASS=runfor
+     - DB_HOST=db
+     - DB_PORT=3306
+    volumes:
+    - mysql:/var/lib/mysql
+
+
+  redis: 
+    image: redis:alpine
+    ports:
+    - "6379:6379"
 
 volumes:
-- mysql_data:/var/lib/mysql
-
-volumes:
-mysql_data
+    mysql:  
