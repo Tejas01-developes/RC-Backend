@@ -13,14 +13,15 @@ jobs:
    - name: Checkout Code
      uses: actions/checkout@v4
 
+   - name: Enable Corepack
+     run: corepack enable 
+
    - name: Setup Node.js
      uses: actions/setup-node@v4
      with:
-       node-version: '20'
+       node-version: '24'
        cache: 'yarn'
 
-   - name: Enable Corepack
-     run: corepack enable 
 
    - name: Install Dependency
      run: yarn install
