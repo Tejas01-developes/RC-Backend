@@ -12,7 +12,7 @@ services:
    - ACCESS_KEY=hbrtngurhshdid
    - REFRESH_KEY=oitujnbrtvrtvhbyh
    - EMAIL=limbadtejas99@gmail.com
-   - EMAIL_PASS=dmbsziwzwusgasen
+   - EMAIL_PASS=ergsergserser
    - REDIS_HOST=redis
    - REDIS_PORT=6379
    - RAZOR_API=rzp_test_T3ScY5ACZiRU07
