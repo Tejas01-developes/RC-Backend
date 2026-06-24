@@ -15,8 +15,8 @@ services:
    - EMAIL_PASS=ergsergserser
    - REDIS_HOST=redis
    - REDIS_PORT=6379
-   - RAZOR_API=rzp_test_T3ScY5ACZiRU07
-   - RAZOR_SECRET=f5Y8Lpt53r1miezRnsmVzY1Y 
+   - RAZOR_API=sdesbsrtgbhsrtb
+   - RAZOR_SECRET=dfbhsdebhstgbsrtgb 
 
   depends_on:
    - db
